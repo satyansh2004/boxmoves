@@ -61,3 +61,6 @@ This project is a practice exercise to understand:
 - Sprite-based movement
 - Collision detection
 - Basic game mechanics using Kontra.js
+
+---
+Play here - https://boxmoves.netlify.app/
