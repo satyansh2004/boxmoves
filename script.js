@@ -1,18 +1,27 @@
-import { init, Sprite, GameLoop, initKeys, keyPressed } from 'kontra';
+import kontra, { init, Sprite, GameLoop, initKeys, keyPressed, load, imageAssets } from 'kontra';
 
 let { canvas } = init('game');
 let scorecard = document.getElementById("yourscore");
 let timer = document.getElementById("timing");
+let playAgainScoreCard = document.getElementById("scorecardbg");
+let scorecardScore = document.getElementById("scorecardScore");
+let playagain = document.getElementById("playagain");
 let score = 0;
 
+let gameOverAudio = new Audio('/assets/audio/over.wav');
+let score1 = new Audio('/assets/audio/score1.mp3');
+let score3 = new Audio('/assets/audio/score3.wav');
+
+
 initKeys();
+
 
 let player = Sprite({
     x: 50,
     y: 50,
     width: 10,
     height: 10,
-    color: 'red',
+    color: "red",
     dx: 2,
     dy: 2,
 
@@ -65,7 +74,7 @@ let target = Sprite({
     y: Math.round(Math.random() * canvas.height),
     height: 5,
     width: 5,
-    color: 'black',
+    color: "black",
 
     update() {
         if (
@@ -77,6 +86,7 @@ let target = Sprite({
             this.x = Math.random() * (canvas.width - this.width);
             this.y = Math.random() * (canvas.height - this.height);
             score++;
+            score1.play()
 
             if (player.dy < 0) {
                 player.dy *= -1;
@@ -116,6 +126,7 @@ let bonusTarget = Sprite({
             this.x = Math.random() * (canvas.width - this.width);
             this.y = Math.random() * (canvas.height - this.height);
             score += 3;
+            score3.play();
         }
     },
 
@@ -143,28 +154,41 @@ let loop = GameLoop({
     }
 })
 
+loop.start();
+
+// playagain function
+playagain.addEventListener("click", () => {
+    location.reload();
+})
 
 let time = Number(prompt("Enter Time"));
-let intervalId = null;
+let timerId = null;
 
 function timingFun() {
-        if (intervalId !== null) return;
-        
-        intervalId = setInterval(() => {
-            loop.start();
+
+    if (time <= 0) {
+        loop.stop();
+        return;
+    } else {
+        if (timerId) return;
+
+        timerId = setInterval(() => {
+
+            time--
             timer.innerHTML = `Time: ${time}`
 
-            if (time === 0) {
-                clearInterval(intervalId);
-                intervalId = null;
+            if (time <= 0) {
+                clearInterval(timerId);
+                timerId = null;
+                console.log("Game Over");
+                gameOverAudio.play();
                 loop.stop();
-                return;
+                playAgainScoreCard.style.visibility = "visible";
+                scorecardScore.innerHTML = `Your Score: ${score}`;
+
             }
 
-
-            console.log(time)
-            time--;
-
         }, 1000)
+    }
 }
 timingFun()
