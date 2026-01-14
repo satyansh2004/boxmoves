@@ -8,9 +8,9 @@ let scorecardScore = document.getElementById("scorecardScore");
 let playagain = document.getElementById("playagain");
 let score = 0;
 
-let gameOverAudio = new Audio('/assets/audio/over.wav');
-let score1 = new Audio('/assets/audio/score1.mp3');
-let score3 = new Audio('/assets/audio/score3.wav');
+let gameOverAudio = new Audio('assets/audio/over.wav');
+let score1 = new Audio('assets/audio/score1.mp3');
+let score3 = new Audio('assets/audio/score3.wav');
 
 
 initKeys();
