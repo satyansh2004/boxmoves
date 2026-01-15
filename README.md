@@ -1,4 +1,4 @@
-# 🎯 Kontra.js Target Game
+# Boxmoves Game
 
 A lightweight 2D browser game built using **Kontra.js** and **HTML5 Canvas**.
 
