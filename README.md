@@ -35,7 +35,7 @@ A target appears at random positions, and whenever the player reaches the target
 
 ### Clone the repo
 ```bash 
-git clone https://github.com/satyansh2004/collect-black-ball-game.git
+git clone https://github.com/satyansh2004/boxmoves.git
 ```
 ---
 
