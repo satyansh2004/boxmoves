@@ -1,38 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Game</title>
-</head>
+  </head>
 
-<body>
-
-    <div id="timeScore">
-        <h1 id="yourscore">0</h1>
+  <body>
+    <div id="mainDivContainer">
+      <div id="timeScore">
+        <h1 id="yourscore">Your Score: 0</h1>
         <h1 id="timing">Timer: 0</h1>
-    </div>
-    <div id="game-container">
+      </div>
+      <div id="game-container">
         <canvas id="game"></canvas>
+
+        <div id="game-levels">
+          <span class="game-levels-options">
+            <label for="speed">Speed</label>
+            <select name="speed" id="speed">
+              <option value="2">Easy</option>
+              <option value="4">Medium</option>
+              <option value="6">Hard</option>
+            </select>
+          </span>
+          <span class="game-levels-options">
+            <label for="timeLimit">Time Limit</label>
+            <select name="timeLimit" id="timeLimit">
+              <option value="30">30s</option>
+              <option value="60">1m</option>
+              <option value="120">2m</option>
+              <option value="180">3m</option>
+            </select>
+          </span>
+          <span class="game-levels-options"> </span>
+          <button id="playGame">
+            Play
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="#000"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="allScores">
+      <button id="youScores">
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+        >
+          <path
+            d="M19 3h-1V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v1H5a1 1 0 0 0-1 1c0 3.31 2.69 6 6 6h1v2H9a1 1 0 0 0-1 1v2H7a1 1 0 0 0 0 2h10a1 1 0 0 0 0-2h-1v-2a1 1 0 0 0-1-1h-2v-2h1c3.31 0 6-2.69 6-6a1 1 0 0 0-1-1zM6 6V5h1v3c-1.1 0-2-.9-2-2zm12 0c0 1.1-.9 2-2 2V5h2v1z"
+          />
+        </svg>
+
+        Check Scores
+      </button>
     </div>
 
     <div id="scorecardbg">
-        <div id="scorecard">
-            <p id="scorecardScore">Your Score: 100</p>
-            <button id="playagain"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12a9 9 0 1 1-3-6.7" />
-                    <polyline points="21 3 21 9 15 9" />
-                </svg>
-            </button>
+      <div id="scorecard">
+        <div id="cancel">
+          <svg
+            id="cancelbtn"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+          >
+            <path
+              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.41L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+            />
+          </svg>
         </div>
+        <p id="scorecardScore">Your Score: NaN</p>
+        <!-- <button id="playagain">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12a9 9 0 1 1-3-6.7" />
+            <polyline points="21 3 21 9 15 9" />
+          </svg>
+        </button> -->
+      </div>
     </div>
 
-    <footer id="foot">Made by <a href="https://github.com/satyansh2004">Satyansh Chand</a></footer>
+    <footer id="foot">
+      Made by <a href="https://github.com/satyansh2004">Satyansh Chand</a>
+    </footer>
 
     <script type="module" src="/script.js"></script>
-</body>
-
+  </body>
 </html>

@@ -1,79 +1,92 @@
-import kontra, { init, Sprite, GameLoop, initKeys, keyPressed, load, imageAssets } from 'kontra';
+import kontra, {
+  init,
+  Sprite,
+  GameLoop,
+  initKeys,
+  keyPressed,
+  load,
+  imageAssets,
+} from "kontra";
 
-let { canvas } = init('game');
+let { canvas } = init("game");
+
 let scorecard = document.getElementById("yourscore");
 let timer = document.getElementById("timing");
 let playAgainScoreCard = document.getElementById("scorecardbg");
 let scorecardScore = document.getElementById("scorecardScore");
 let playagain = document.getElementById("playagain");
+let timeLimit = document.getElementById("timeLimit");
+let speedLimit = document.getElementById("speed");
+let playGame = document.getElementById("playGame");
+let cancelScoreCard = document.getElementById("cancelbtn");
+let youScores = document.getElementById("youScores");
 let score = 0;
 
-import overSound from './assets/audio/over.wav';
-import score1Sound from './assets/audio/score1.mp3';
-import score3Sound from './assets/audio/score3.wav';
+import overSound from "./assets/audio/over.wav";
+import score1Sound from "./assets/audio/score1.mp3";
+import score3Sound from "./assets/audio/score3.wav";
 
 let gameOverAudio = new Audio(overSound);
 let score1 = new Audio(score1Sound);
 let score3 = new Audio(score3Sound);
 
-
 initKeys();
 
-
-let player = Sprite({
+playGame.addEventListener("click", () => {
+  let player = Sprite({
     x: 50,
     y: 50,
     width: 10,
     height: 10,
     color: "red",
-    dx: 2,
-    dy: 2,
+    dx: Number.parseInt(speedLimit.value),
+    dy: Number.parseInt(speedLimit.value),
 
     update() {
-        this.x += this.dx;
+      this.x += this.dx;
 
-        if (this.x <= 0) {
-            this.x = 0;
-            this.dx = Math.abs(this.dx);
-        }
-        if (this.x + this.width >= canvas.width) {
-            this.x = canvas.width - this.width;
-            this.dx = -Math.abs(this.dx);
-        }
+      if (this.x <= 0) {
+        this.x = 0;
+        this.dx = Math.abs(this.dx);
+      }
+      if (this.x + this.width >= canvas.width) {
+        this.x = canvas.width - this.width;
+        this.dx = -Math.abs(this.dx);
+      }
 
-        if (keyPressed('arrowleft')) {
-            this.dx = -Math.abs(this.dx);
+      if (keyPressed("arrowleft")) {
+        this.dx = -Math.abs(this.dx);
+      }
+      if (keyPressed("arrowright")) {
+        this.dx = Math.abs(this.dx);
+      }
 
-        }
-        if (keyPressed('arrowright')) {
-            this.dx = Math.abs(this.dx);
-        }
+      if (this.y <= 0) {
+        this.y = 0;
+        this.dy = Math.abs(this.dy);
+      }
+      if (this.y + this.height >= canvas.height) {
+        this.y = canvas.height - this.height;
+        this.dy = -Math.abs(this.dy);
+      }
+      if (keyPressed("arrowup")) {
+        this.y += this.dy;
+        this.dy = -Math.abs(this.dy);
+      }
+      if (keyPressed("arrowdown")) {
+        this.y += this.dy;
+        this.dy = Math.abs(this.dy);
+      }
 
-        if (this.y <= 0) {
-            this.y = 0;
-            this.dy = Math.abs(this.dy);
-        }
-        if (this.y + this.height >= canvas.height) {
-            this.y = canvas.height - this.height;
-            this.dy = -Math.abs(this.dy);
-        }
-        if (keyPressed('arrowup')) {
-            this.y += this.dy;
-            this.dy = -Math.abs(this.dy);
-        }
-        if (keyPressed('arrowdown')) {
-            this.y += this.dy;
-            this.dy = Math.abs(this.dy);
-        }
-        timingFun()
+      timingFun();
     },
 
     render() {
-        this.draw();
-    }
-});
+      this.draw();
+    },
+  });
 
-let target = Sprite({
+  let target = Sprite({
     x: Math.round(Math.random() * canvas.width),
     y: Math.round(Math.random() * canvas.height),
     height: 5,
@@ -81,118 +94,107 @@ let target = Sprite({
     color: "black",
 
     update() {
-        if (
-            player.x < this.x + this.width &&
-            player.x + player.width > this.x &&
-            player.y < this.y + this.height &&
-            player.y + player.height > this.y
-        ) {
-            this.x = Math.random() * (canvas.width - this.width);
-            this.y = Math.random() * (canvas.height - this.height);
-            score++;
-            score1.play()
-
-            if (player.dy < 0) {
-                player.dy *= -1;
-            }
-
-            if (player.dx < 0) {
-                player.dx *= -1;
-            }
-
-            if (score % 25 == 0) {
-                player.dx += 1;
-                player.dy += 1;
-            }
-
-        }
+      if (
+        player.x < this.x + this.width &&
+        player.x + player.width > this.x &&
+        player.y < this.y + this.height &&
+        player.y + player.height > this.y
+      ) {
+        this.x = Math.random() * (canvas.width - this.width);
+        this.y = Math.random() * (canvas.height - this.height);
+        score++;
+        score1.play();
+      }
     },
 
     render() {
-        this.draw()
-    }
-})
+      this.draw();
+    },
+  });
 
-let bonusTarget = Sprite({
+  let bonusTarget = Sprite({
     x: Math.random() * canvas.width - player.width,
     y: Math.random() * canvas.height - player.height,
     height: 20,
     width: 20,
     radius: 5,
-    color: 'blue',
+    color: "blue",
     update() {
-        if (
-            player.x < this.x + this.width &&
-            player.x + player.width > this.x &&
-            player.y < this.y + this.height &&
-            player.y + player.height > this.y
-        ) {
-            this.x = Math.random() * (canvas.width - this.width);
-            this.y = Math.random() * (canvas.height - this.height);
-            score += 3;
-            score3.play();
-        }
+      if (
+        player.x < this.x + this.width &&
+        player.x + player.width > this.x &&
+        player.y < this.y + this.height &&
+        player.y + player.height > this.y
+      ) {
+        this.x = Math.random() * (canvas.width - this.width);
+        this.y = Math.random() * (canvas.height - this.height);
+        score += 3;
+        score3.play();
+      }
     },
 
     render() {
-        this.draw()
+      this.draw();
+    },
+  });
+
+  let loop = GameLoop({
+    update() {
+      player.update();
+      target.update();
+      if (score % 10 === 0 && score !== 0) {
+        bonusTarget.update();
+      }
+      scorecard.innerHTML = `Your Score: ${score}`;
+    },
+    render() {
+      player.render();
+      target.render();
+      if (score % 10 === 0 && score !== 0) {
+        bonusTarget.render();
+      }
+    },
+  });
+
+  loop.start();
+
+  // playagain function
+
+  let time = timeLimit.value;
+  let timerId = null;
+  function timingFun() {
+    if (time <= 0) {
+      loop.stop();
+      return;
+    } else {
+      if (timerId) return;
+
+      timerId = setInterval(() => {
+        time--;
+        timer.innerHTML = `Time: ${time}`;
+
+        if (time <= 0) {
+          clearInterval(timerId);
+          timerId = null;
+          console.log("Game Over");
+          gameOverAudio.play();
+          loop.stop();
+          playAgainScoreCard.style.visibility = "visible";
+          scorecardScore.innerHTML = `Your Score: ${score}`;
+          score = 0;
+          scorecard.innerHTML = `Your Score: ${score}`;
+        }
+      }, 1000);
     }
+  }
+
+  timingFun();
 });
 
-let loop = GameLoop({
-    update() {
-        player.update();
-        target.update();
-        if (score % 10 === 0 && score !== 0) {
-            bonusTarget.update();
-        }
-        scorecard.innerHTML = `Your Score: ${score}`;
+cancelScoreCard.addEventListener("click", () => {
+  playAgainScoreCard.style.visibility = "hidden";
+});
 
-    },
-    render() {
-        player.render();
-        target.render();
-        if (score % 10 === 0 && score !== 0) {
-            bonusTarget.render();
-        }
-    }
-})
-
-loop.start();
-
-// playagain function
-playagain.addEventListener("click", () => {
-    location.reload();
-})
-
-let time = Number(prompt("Enter Time"));
-let timerId = null;
-
-function timingFun() {
-
-    if (time <= 0) {
-        loop.stop();
-        return;
-    } else {
-        if (timerId) return;
-
-        timerId = setInterval(() => {
-
-            time--
-            timer.innerHTML = `Time: ${time}`
-
-            if (time <= 0) {
-                clearInterval(timerId);
-                timerId = null;
-                console.log("Game Over");
-                gameOverAudio.play();
-                loop.stop();
-                playAgainScoreCard.style.visibility = "visible";
-                scorecardScore.innerHTML = `Your Score: ${score}`;
-
-            }
-
-        }, 1000)
-    }
-}
-timingFun()
+youScores.addEventListener("click", () => {
+  playAgainScoreCard.style.visibility = "visible";
+});
