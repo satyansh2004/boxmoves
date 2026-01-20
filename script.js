@@ -13,13 +13,18 @@ let { canvas } = init("game");
 let scorecard = document.getElementById("yourscore");
 let timer = document.getElementById("timing");
 let playAgainScoreCard = document.getElementById("scorecardbg");
+let totalScoresbg = document.getElementById("totalScoresbg");
 let scorecardScore = document.getElementById("scorecardScore");
-let playagain = document.getElementById("playagain");
+
 let timeLimit = document.getElementById("timeLimit");
 let speedLimit = document.getElementById("speed");
+
+let table = document.getElementById("tableDOM");
+
 let playGame = document.getElementById("playGame");
 let cancelScoreCard = document.getElementById("cancelbtn");
-let youScores = document.getElementById("youScores");
+let cancelScoresTable = document.getElementById("cancelScores");
+let youScores = document.getElementById("yourScores");
 let score = 0;
 
 import overSound from "./assets/audio/over.wav";
@@ -29,6 +34,10 @@ import score3Sound from "./assets/audio/score3.wav";
 let gameOverAudio = new Audio(overSound);
 let score1 = new Audio(score1Sound);
 let score3 = new Audio(score3Sound);
+
+let scoreArray = JSON.parse(localStorage.getItem("score")) || [];
+let speedArray = JSON.parse(localStorage.getItem("speed")) || [];
+let timeArray = JSON.parse(localStorage.getItem("time")) || [];
 
 initKeys();
 
@@ -176,11 +185,24 @@ playGame.addEventListener("click", () => {
         if (time <= 0) {
           clearInterval(timerId);
           timerId = null;
-          console.log("Game Over");
+
           gameOverAudio.play();
+
           loop.stop();
+
           playAgainScoreCard.style.visibility = "visible";
           scorecardScore.innerHTML = `Your Score: ${score}`;
+
+          scoreArray.push(score);
+          speedArray.push(Number(speedLimit.value));
+          timeArray.push(Number(timeLimit.value));
+
+          localStorage.setItem("score", JSON.stringify(scoreArray));
+          localStorage.setItem("speed", JSON.stringify(speedArray));
+          localStorage.setItem("time", JSON.stringify(timeArray));
+
+          displayScoreCard();
+
           score = 0;
           scorecard.innerHTML = `Your Score: ${score}`;
         }
@@ -191,10 +213,42 @@ playGame.addEventListener("click", () => {
   timingFun();
 });
 
+displayScoreCard();
+
+function displayScoreCard() {
+  let tr = "";
+  let displayScore = JSON.parse(localStorage.getItem("score")) || [];
+  let displaySpeed = JSON.parse(localStorage.getItem("speed")) || [];
+  let displayTime = JSON.parse(localStorage.getItem("time")) || [];
+
+  for (let i = 0; i < Array.from(displayScore).length; i++) {
+    console.log(i);
+    if (displaySpeed[i] == "2") {
+      displaySpeed[i] = "Easy";
+    }
+    if (displaySpeed[i] == "4") {
+      displaySpeed[i] = "Medium";
+    }
+    if (displaySpeed[i] == "6") {
+      displaySpeed[i] = "Hard";
+    }
+    tr = `<tr>
+                  <td>${displayScore[i]}</td>
+                  <td>${displaySpeed[i]}</td>
+                  <td>${displayTime[i]}s</td>
+                </tr>`;
+    table.innerHTML += tr;
+  }
+}
+
 cancelScoreCard.addEventListener("click", () => {
   playAgainScoreCard.style.visibility = "hidden";
 });
 
+cancelScoresTable.addEventListener("click", () => {
+  totalScoresbg.style.visibility = "hidden";
+});
+
 youScores.addEventListener("click", () => {
-  playAgainScoreCard.style.visibility = "visible";
+  totalScoresbg.style.visibility = "visible";
 });
