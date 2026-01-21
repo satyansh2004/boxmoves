@@ -237,10 +237,16 @@ function displayScoreCard() {
     if (displaySpeed[i] == "6") {
       displaySpeed[i] = "Hard";
     }
+    if (Number(displayTime[i]) % 60 == 0) {
+      let timeinMin = Number(displayTime[i]) / 60;
+      displayTime[i] = `${timeinMin}m`;
+    } else {
+      displayTime[i] = `${displayTime[i]}s`;
+    }
     tr = `<tr>
                   <td>${displayScore[i]}</td>
                   <td>${displaySpeed[i]}</td>
-                  <td>${displayTime[i]}s</td>
+                  <td>${displayTime[i]}</td>
                 </tr>`;
     table.innerHTML += tr;
   }
