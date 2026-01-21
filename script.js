@@ -167,10 +167,13 @@ playGame.addEventListener("click", () => {
 
   loop.start();
 
+  playGame.setAttribute("disabled", true);
+
   // playagain function
 
   let time = timeLimit.value;
   let timerId = null;
+
   function timingFun() {
     if (time <= 0) {
       loop.stop();
@@ -185,6 +188,10 @@ playGame.addEventListener("click", () => {
         if (time <= 0) {
           clearInterval(timerId);
           timerId = null;
+
+          if(playGame.getAttribute("disabled") == 'true') {
+            playGame.removeAttribute("disabled");
+          };
 
           gameOverAudio.play();
 
@@ -209,7 +216,6 @@ playGame.addEventListener("click", () => {
       }, 1000);
     }
   }
-
   timingFun();
 });
 
@@ -222,7 +228,6 @@ function displayScoreCard() {
   let displayTime = JSON.parse(localStorage.getItem("time")) || [];
 
   for (let i = 0; i < Array.from(displayScore).length; i++) {
-    console.log(i);
     if (displaySpeed[i] == "2") {
       displaySpeed[i] = "Easy";
     }
