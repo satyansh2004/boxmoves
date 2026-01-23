@@ -26,6 +26,7 @@ let cancelScoreCard = document.getElementById("cancelbtn");
 let cancelScoresTable = document.getElementById("cancelScores");
 let cancelMobileButtons = document.getElementById("cancelMobileButtons");
 
+let mobileContainerbg = document.getElementById("mobileContainerbg");
 let arrowUpBtn = document.getElementById("arrowUp");
 let arrowLeftBtn = document.getElementById("arrowLeft");
 let arrowDownBtn = document.getElementById("arrowDown");
@@ -35,9 +36,8 @@ const input = {
   up: false,
   down: false,
   left: false,
-  right: false
+  right: false,
 };
-
 
 arrowUpBtn.addEventListener("touchstart", () => (input.up = true));
 arrowUpBtn.addEventListener("touchend", () => (input.up = false));
@@ -267,6 +267,8 @@ playGame.addEventListener("click", () => {
           localStorage.setItem("speed", JSON.stringify(speedArray));
           localStorage.setItem("time", JSON.stringify(timeArray));
 
+          mobileContainerbg.style.visibility = "hidden";
+
           displayScoreCard();
 
           score = 0;
@@ -324,11 +326,9 @@ youScores.addEventListener("click", () => {
 });
 
 mobileButtons.addEventListener("click", () => {
-  let mobileContainerbg = document.getElementById("mobileContainerbg");
   mobileContainerbg.style.visibility = "visible";
 });
 
 cancelMobileButtons.addEventListener("click", () => {
-  let mobileContainerbg = document.getElementById("mobileContainerbg");
   mobileContainerbg.style.visibility = "hidden";
 });
