@@ -66,6 +66,7 @@ canvas#game {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 10;
 }
 
 #timeScore {
@@ -317,15 +318,20 @@ canvas#game {
   width: 100%;
   height: 100%;
   inset: 0;
+  z-index: 100;
   visibility: hidden;
 }
 
 #mobileContainer {
   gap: 5px;
   position: fixed;
-  bottom: 8%;
+  bottom: 0%;
   left: 50%;
+  background-color: rgba(0, 0, 0, 0.9);
   transform: translate(-50%, -5%);
+  width: 100%;
+  height: 25%;
+  padding: 20px;
 }
 
 .mobileButtons {
@@ -333,12 +339,12 @@ canvas#game {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .bottombtns {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 #mobileContainer button {
