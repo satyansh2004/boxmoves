@@ -24,6 +24,45 @@ let table = document.getElementById("tableDOM");
 let playGame = document.getElementById("playGame");
 let cancelScoreCard = document.getElementById("cancelbtn");
 let cancelScoresTable = document.getElementById("cancelScores");
+let cancelMobileButtons = document.getElementById("cancelMobileButtons");
+
+let arrowUpBtn = document.getElementById("arrowUp");
+let arrowLeftBtn = document.getElementById("arrowLeft");
+let arrowDownBtn = document.getElementById("arrowDown");
+let arrowRightBtn = document.getElementById("arrowRight");
+
+const input = {
+  up: false,
+  down: false,
+  left: false,
+  right: false
+};
+
+
+arrowUpBtn.addEventListener("touchstart", () => (input.up = true));
+arrowUpBtn.addEventListener("touchend", () => (input.up = false));
+arrowUpBtn.addEventListener("mousedown", () => (input.up = true));
+arrowUpBtn.addEventListener("mouseup", () => (input.up = false));
+arrowUpBtn.addEventListener("mouseleave", () => (input.up = false));
+
+arrowLeftBtn.addEventListener("touchstart", () => (input.left = true));
+arrowLeftBtn.addEventListener("touchend", () => (input.left = false));
+arrowLeftBtn.addEventListener("mousedown", () => (input.left = true));
+arrowLeftBtn.addEventListener("mouseup", () => (input.left = false));
+arrowLeftBtn.addEventListener("mouseleave", () => (input.left = false));
+
+arrowDownBtn.addEventListener("touchstart", () => (input.down = true));
+arrowDownBtn.addEventListener("touchend", () => (input.down = false));
+arrowDownBtn.addEventListener("mousedown", () => (input.down = true));
+arrowDownBtn.addEventListener("mouseup", () => (input.down = false));
+arrowDownBtn.addEventListener("mouseleave", () => (input.down = false));
+
+arrowRightBtn.addEventListener("touchstart", () => (input.right = true));
+arrowRightBtn.addEventListener("touchend", () => (input.right = false));
+arrowRightBtn.addEventListener("mousedown", () => (input.right = true));
+arrowRightBtn.addEventListener("mouseup", () => (input.right = false));
+arrowRightBtn.addEventListener("mouseleave", () => (input.right = false));
+
 let youScores = document.getElementById("yourScores");
 let score = 0;
 
@@ -34,6 +73,8 @@ import score3Sound from "./assets/audio/score3.wav";
 let gameOverAudio = new Audio(overSound);
 let score1 = new Audio(score1Sound);
 let score3 = new Audio(score3Sound);
+
+let mobileButtons = document.getElementById("mobileControls");
 
 let scoreArray = JSON.parse(localStorage.getItem("score")) || [];
 let speedArray = JSON.parse(localStorage.getItem("speed")) || [];
@@ -66,6 +107,7 @@ playGame.addEventListener("click", () => {
       if (keyPressed("arrowleft")) {
         this.dx = -Math.abs(this.dx);
       }
+
       if (keyPressed("arrowright")) {
         this.dx = Math.abs(this.dx);
       }
@@ -78,13 +120,30 @@ playGame.addEventListener("click", () => {
         this.y = canvas.height - this.height;
         this.dy = -Math.abs(this.dy);
       }
+
       if (keyPressed("arrowup")) {
         this.y += this.dy;
         this.dy = -Math.abs(this.dy);
       }
+
       if (keyPressed("arrowdown")) {
         this.y += this.dy;
         this.dy = Math.abs(this.dy);
+      }
+
+      if (input.up) {
+        this.y += this.dy;
+        this.dy = -Math.abs(this.dy);
+      }
+      if (input.down) {
+        this.y += this.dy;
+        this.dy = Math.abs(this.dy);
+      }
+      if (input.left) {
+        this.dx = -Math.abs(this.dx);
+      }
+      if (input.right) {
+        this.dx = Math.abs(this.dx);
       }
 
       timingFun();
@@ -189,9 +248,9 @@ playGame.addEventListener("click", () => {
           clearInterval(timerId);
           timerId = null;
 
-          if(playGame.getAttribute("disabled") == 'true') {
+          if (playGame.getAttribute("disabled") == "true") {
             playGame.removeAttribute("disabled");
-          };
+          }
 
           gameOverAudio.play();
 
@@ -262,4 +321,14 @@ cancelScoresTable.addEventListener("click", () => {
 
 youScores.addEventListener("click", () => {
   totalScoresbg.style.visibility = "visible";
+});
+
+mobileButtons.addEventListener("click", () => {
+  let mobileContainerbg = document.getElementById("mobileContainerbg");
+  mobileContainerbg.style.visibility = "visible";
+});
+
+cancelMobileButtons.addEventListener("click", () => {
+  let mobileContainerbg = document.getElementById("mobileContainerbg");
+  mobileContainerbg.style.visibility = "hidden";
 });

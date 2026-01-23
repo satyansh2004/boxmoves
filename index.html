@@ -51,6 +51,16 @@
       </div>
     </div>
 
+    <div id="controls">
+      <button id="mobileControls">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="8" width="18" height="8" rx="4" fill="currentColor" />
+          <circle cx="9" cy="12" r="1.2" fill="#fff" />
+          <circle cx="15" cy="12" r="1.2" fill="#fff" />
+        </svg>
+      </button>
+    </div>
+
     <div id="allScores">
       <button id="yourScores">
         <svg
@@ -90,10 +100,41 @@
 
     <!-------------------------------------------------- Score Table--------------------------------- -->
     <div id="totalScoresbg">
-    <div id="totalScores">
-      <div id="cancelScores" class="cancel">
+      <div id="totalScores">
+        <div id="cancelScores" class="cancel">
+          <svg
+            id="cancelScoresBtn"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+          >
+            <path
+              d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.9 4.89a1 1 0 1 0 1.41 1.42L12 13.41l4.89 4.9a1 1 0 0 0 1.42-1.41L13.41 12l4.9-4.89a1 1 0 0 0-.01-1.4z"
+            />
+          </svg>
+        </div>
+        <div class="table_component" role="region" tabindex="0">
+          <table id="tableDOM">
+            <thead>
+              <tr>
+                <th>Score</th>
+                <th>Speed</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-----------Mobile controls-------------->
+    <div id="mobileContainerbg">
+      <div id="cancelButtons" class="cancel">
         <svg
-          id="cancelScoresBtn"
+          id="cancelMobileButtons"
           width="32"
           height="32"
           viewBox="0 0 24 24"
@@ -105,19 +146,34 @@
           />
         </svg>
       </div>
-      <div class="table_component" role="region" tabindex="0">
-        <table id="tableDOM">
-          <thead>
-            <tr>
-              <th>Score</th>
-              <th>Speed</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div id="mobileContainer">
+        <div class="mobileButtons">
+          <div class="topbtns">
+            <button id="arrowUp">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M12 4L4 12H9V20H15V12H20L12 4Z" fill="currentColor" />
+              </svg>
+            </button>
+          </div>
+          <div class="bottombtns">
+            <button id="arrowLeft">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12L12 4V9H20V15H12V20L4 12Z" fill="currentColor" />
+              </svg>
+            </button>
+            <button id="arrowDown">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M12 20L20 12H15V4H9V12H4L12 20Z" fill="currentColor" />
+              </svg>
+            </button>
+            <button id="arrowRight">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M20 12L12 20V15H4V9H12V4L20 12Z" fill="currentColor" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
     </div>
 
     <footer id="foot">
