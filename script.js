@@ -1,4 +1,4 @@
-import kontra, {
+const {
   init,
   Sprite,
   GameLoop,
@@ -6,7 +6,8 @@ import kontra, {
   keyPressed,
   load,
   imageAssets,
-} from "kontra";
+} = kontra;
+
 
 let { canvas } = init("game");
 
