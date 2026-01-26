@@ -67,13 +67,10 @@ arrowRightBtn.addEventListener("mouseleave", () => (input.right = false));
 let youScores = document.getElementById("yourScores");
 let score = 0;
 
-import overSound from "./assets/audio/over.wav";
-import score1Sound from "./assets/audio/score1.mp3";
-import score3Sound from "./assets/audio/score3.wav";
+const gameOverAudio = new Audio("./assets/audio/over.wav");
+const score1 = new Audio("./assets/audio/score1.mp3");
+const score3 = new Audio("./assets/audio/score3.wav");
 
-let gameOverAudio = new Audio(overSound);
-let score1 = new Audio(score1Sound);
-let score3 = new Audio(score3Sound);
 
 let mobileButtons = document.getElementById("mobileControls");
 
