@@ -25,6 +25,7 @@
 
 body {
   background-color: #333;
+  color: #fff;
 }
 
 #mainDivContainer {
@@ -265,7 +266,7 @@ canvas#game {
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: #3B82F6;
+  background: #3b82f6;
   cursor: pointer;
   box-shadow: 1px 1px 1px 1px #292929;
 }
@@ -358,6 +359,17 @@ canvas#game {
   box-shadow: 1px 1px 1px 1px #6cffa2;
 }
 
+.container {
+  width: 75%;
+  margin: 5vh auto;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.c-bottom {
+  margin: 5vh auto 10vh auto;
+}
+
 @media (max-width: 1100px) {
   #game-levels {
     width: 35%;
@@ -409,6 +421,10 @@ canvas#game {
   }
   #scorecard {
     width: 75%;
+  }
+
+  .container {
+    width: 95%;
   }
 
   #totalScores {
